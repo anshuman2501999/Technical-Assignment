@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pdb
 import re
 
 session = requests.Session()
@@ -8,8 +7,6 @@ session = requests.Session()
 def get_hidden_value(soup,name):
     element = soup.find("input", {"name": name})
     return element["value"] if element else ""
-
-
 
 
 def get_data(district, tehsil, sro,doc_type):
@@ -76,7 +73,6 @@ def get_data(district, tehsil, sro,doc_type):
         return sro
 
 
-
 def get_tehsils(district_soup):
     tehsil_select = district_soup.find("select", {"name": "ctl00$ContentPlaceHolder1$ddlTehsil"})
 
@@ -89,8 +85,6 @@ def get_tehsils(district_soup):
             tehsil[label] = int(value)
 
     return tehsil
-
-
 
 # Build the dictionary from option tags
 def get_districts(soup):
@@ -114,7 +108,6 @@ def get_documents_type(soup):
         if value and value.strip().isdigit():
             doc_types[label] = int(value)
     return doc_types
-
 
 # Step 3: Prepare your payload
 def get_payload(payload_type,viewstate,viewstategenerator,eventvalidation,district_id, tehsil_id=None):
